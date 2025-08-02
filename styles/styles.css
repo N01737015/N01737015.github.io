@@ -1,0 +1,278 @@
+/* Body overlay */
+body {
+  background-color: white; 
+  color: #E6F1FF; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  padding: 0;
+  line-height: 1.6;
+}
+
+/* Navigation */
+nav {
+  background-color: #0A192F;
+  border-bottom: 2px solid #00D1B2;
+  padding: 15px 0;
+  text-align: center;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+nav a {
+  color: #E6F1FF;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: cyan;
+  color: #0A192F; 
+  transform: scale(1.05);
+}
+
+nav a.active {
+  background-color: cyan; 
+  color: #0A192F; 
+  transform: scale(1.05);
+}
+
+/* Main content */
+section {
+  max-width: 1200px;
+  margin: 0 auto 60px auto;
+  padding: 40px;
+  background: rgba(23, 42, 69, 0.85);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+}
+
+h1 {
+  color: darkturquoise;
+  border-left: 4px solid #FF7E67; 
+  padding-left: 15px;
+  font-size: 42px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-size: 32px;
+  margin: 30px 0 20px;
+  color: aquamarine;
+}
+
+p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+/* Profile image */
+.profile-container {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile-img {
+  flex: 1;
+  max-width: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.profile-img img {
+  width: 100%;
+  height: auto;
+}
+
+.profile-text {
+  flex: 2;
+}
+
+/* Home page */
+.home-hero {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.home-content {
+  flex: 2;
+}
+
+.home-image {
+  flex: 1;
+  max-width: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.home-image img {
+  width: 100%;
+  height: auto;
+}
+
+/* Projects */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.project-card {
+  background: rgba(23, 42, 69, 0.7);
+  border: 1px solid #00D1B2;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 209, 178, 0.3);
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-card p {
+  padding: 20px;
+}
+
+.project-card strong {
+  color: #00bcd4;
+  font-size: 20px;
+}
+
+/* Contact form */
+form {
+  margin-top: 20px;
+  max-width: 600px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #00bcd4;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+input[type="submit"] {
+  background: linear-gradient(135deg, #FF7E67, #FF5E62); 
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 15px;
+  font-size: 18px;
+}
+
+input[type="submit"]:hover {
+  background: linear-gradient(135deg, #FF5E62, #FF7E67);
+  box-shadow: 0 5px 15px rgba(255, 126, 103, 0.4);
+}
+
+/* Footer */
+
+/* --- Modern Compact Footer --- */
+footer {
+  background-color: #0A192F;
+  padding: 14px 0;
+  border-top: 1px solid #00D1B2;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.footer-content {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.footer-content p {
+  margin: 0 auto 10px auto;
+  font-size: 14px;
+  color: #CCD6F6;
+  width: fit-content;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 0;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.footer-social a {
+  color: #E6F1FF;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  padding: 0 2px;
+}
+
+.footer-social a:hover {
+  color: cyan;
+  text-decoration-color: cyan;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .footer-social {
+    gap: 18px;
+  }
+  footer {
+    padding: 12px 0;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .home-hero, .profile-container {
+    flex-direction: column;
+  }
+  
+  .home-image, .profile-img {
+    max-width: 100%;
+  }
+  
+  section {
+    padding: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 32px;
+  }
+  
+  section {
+    padding: 20px;
+  }
+  
+  nav a {
+    display: block;
+    margin: 8px auto;
+    width: 80%;
+  }
+}
