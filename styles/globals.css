@@ -1,26 +1,80 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f5f5f5;
+  color: #111;
 }
+.page {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+.nav {
+  padding: 18px;
+  background: #333;
+  color: white;
+  text-align: center;
+}
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  margin-bottom: 18px;
+}
+
+/* link boxes */
+.link-boxes {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.link-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 25px;
+  background: darkblue;
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  width: 160px;
+  text-align: center;
+  transition: background 0.16s;
+}
+.link-box:hover { background: #005bb5; }
+
+/* movies */
+.movie-section { margin-bottom: 16px; }
+.movie-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f0f2f5;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+.movie-title { font-size: 16px; }
+
+/* buttons */
+button {
+  padding: 8px 12px;
+  border: none;
+  background: darkblue;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+button:hover { background: #005bb5; }
+button:disabled { opacity: 0.6; cursor: default; }
+
+/* clear button */
+.clear-btn { background: #e53e3e; margin-bottom: 10px; }
+.clear-btn:hover { background: darkblue; }
+
+/* favorites list */
+.favorites-list { padding-left: 20px; }
