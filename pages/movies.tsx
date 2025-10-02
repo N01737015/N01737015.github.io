@@ -3,6 +3,7 @@ import Link from 'next/link'
 import NavBar from '../components/NavBar'
 import MovieCard from '../components/MovieCard'
 
+// function to load saved favorites from localStorage
 function loadSavedFavorites(): string[] {
   if (typeof window === 'undefined') return []
   try {
@@ -14,27 +15,35 @@ function loadSavedFavorites(): string[] {
 }
 
 export default function MoviesPage() {
-  const [favorites, setFavorites] = useState<string[]>([])
+  const [favorites, setFavorites] = useState<string[]>([]) // state for favorites
 
+  // load favorites when page starts
   useEffect(() => {
     setFavorites(loadSavedFavorites())
   }, [])
 
+   // Movie data (3 categories)
   const englishMovies = ["Interstellar", "The Dark Knight", "Conjuring", "Tenet"]
   const hindiMovies = ["3 Idiots", "War", "Housefull", "Welcome"]
   const gujaratiMovies = ["Chhello Divas", "Vash", "Su Thayu", "Love Ni Bhavai"]
 
+  // Helper to save favorites in both state + localStorage
   function saveFavorites(next: string[]) {
     setFavorites(next)
     localStorage.setItem('favorites', JSON.stringify(next))
   }
+
+  // Add new movie if not already there
   function addToFavorites(title: string) {
     if (!favorites.includes(title)) saveFavorites([...favorites, title])
   }
+
+  // Remove a movie
   function removeFromFavorites(title: string) {
     saveFavorites(favorites.filter((m) => m !== title))
   }
 
+  // Renders each category section
   function renderMovieList(list: string[], heading: string) {
     return (
       <section className="movie-section">

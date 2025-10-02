@@ -1,4 +1,4 @@
-// home page with two separate white boxes
+// Home page with two sections
 import Link from 'next/link'
 import NavBar from '../components/NavBar'
 

@@ -1,4 +1,4 @@
-// small card for one movie
+// Props for MovieCard (title, isFavorite, and functions)
 type Props = {
   title: string
   isFavorite: boolean
@@ -6,6 +6,7 @@ type Props = {
   onRemove: () => void
 }
 
+// One small card for a movie
 export default function MovieCard({ title, isFavorite, onAdd, onRemove }: Props) {
   return (
     <div className="movie-card">

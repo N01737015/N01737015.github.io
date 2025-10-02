@@ -1,4 +1,4 @@
-// simple title bar at top
+// Simple title bar at top
 export default function NavBar() {
   return (
     <nav className="nav">
