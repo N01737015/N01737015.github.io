@@ -1,12 +1,13 @@
+/* Import Tailwind base styles */
 @import "tailwindcss";
 
-/* Light Theme Variables */
+/* CSS variables for light theme colors */
 :root {
-  --background: #ffffff;   /* Full white background */
-  --foreground: #171717;   /* Dark grey text */
+  --background: #ffffff;   /* White background */
+  --foreground: #171717;   /* Dark text color */
 }
 
-/* Tailwind theme integration */
+/* Connect CSS variables with Tailwind */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -14,11 +15,67 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Force light mode ALWAYS */
+/* Global body styles */
 body {
-  background: #ffffff !important;
-  color: #171717;
+  background: #ffffff !important; /* Force light mode */
+  color: #171717;                 /* Default text color */
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
+
+/* Style for input fields */
+input {
+  @apply p-3 border-2 border-black rounded-md; /* Tailwind classes */
+  background-color: #ffffff;  /* White background */
+  color: #000000;
+  font-size: 14px;
+}
+
+/* Placeholder text color */
+input::placeholder {
+  color: #555555;
+}
+
+/* Input focus style */
+input:focus {
+  outline: none;
+  border-color: #000000;  /* Keep border black on focus */
+}
+
+/* Button styles */
+button {
+  @apply bg-black text-white py-2 px-4 rounded-md; /* Tailwind classes */
+  cursor: pointer;
+}
+
+/* Remove default focus outline */
+button:focus {
+  outline: none;
+}
+
+/* Disable hover effect for buttons */
+button:hover {
+  background-color: #333;  /* Slight change for hover effect */
+}
+
+/* Add space between the input and the added items on all pages */
+input {
+  margin-bottom: 20px;  /* Adds space below input */
+}
+
+/* Add space between each item in the list */
+div > div {
+  margin-bottom: 15px;  /* Space between items */
+}
+
+/* Space between unpaid and paid status and Mark as Paid button in Bills */
+.bills-item {
+  margin-bottom: 15px;
+}
+
+/* Add margin between the results for consistency */
+ul > li {
+  margin-bottom: 12px;  /* Space between each list item */
+}
+

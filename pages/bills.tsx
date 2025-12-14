@@ -1,17 +1,56 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-interface BillItem {
+// Interface for each bill item
+interface Bill {
   name: string;
   paid: boolean;
+  addedBy: string;
 }
 
 export default function Bills() {
-  const [bill, setBill] = useState<string>("");
-  const [bills, setBills] = useState<BillItem[]>([]);
+  // Input field value
+  const [bill, setBill] = useState("");
+
+  // List of bills
+  const [bills, setBills] = useState<Bill[]>([]);
+
+  // Username from Profile page
+  const [username, setUsername] = useState("");
+
+  // Used to avoid saving before loading data
+  const [loaded, setLoaded] = useState(false);
+
+  // Load saved user and bills when page loads
+  useEffect(() => {
+    const u = localStorage.getItem("homeSyncUserName");
+    const saved = localStorage.getItem("billList");
+
+    if (u) setUsername(u);
+    if (saved) setBills(JSON.parse(saved));
+
+    setLoaded(true);
+  }, []);
+
+  // Save bills to localStorage when they change
+  useEffect(() => {
+    if (!loaded) return;
+    localStorage.setItem("billList", JSON.stringify(bills));
+  }, [bills, loaded]);
 
   function addBill() {
+    // User must set name first
+    if (!username) {
+      alert("Set your name in Profile first.");
+      return;
+    }
+
     if (!bill) return;
-    setBills([...bills, { name: bill, paid: false }]);
+
+    setBills([
+      ...bills,
+      { name: bill, paid: false, addedBy: username },
+    ]);
+
     setBill("");
   }
 
@@ -28,19 +67,19 @@ export default function Bills() {
       <input
         value={bill}
         onChange={(e) => setBill(e.target.value)}
-        placeholder="Enter bill"
-        style={{ padding: "5px", marginRight: "10px" }}
+        placeholder="Add a bill"
       />
 
       <button onClick={addBill}>Add</button>
 
-      <div style={{ marginTop: "20px" }}>
+      <div>
         {bills.map((b, i) => (
           <div key={i}>
-            {b.name} - {b.paid ? "Paid" : "Unpaid"}
+            {b.name} (added by {b.addedBy}) –{" "}
+            {b.paid ? "Paid" : "Unpaid"}
 
             {!b.paid && (
-              <button style={{ marginLeft: "10px" }} onClick={() => markPaid(i)}>
+              <button onClick={() => markPaid(i)}>
                 Mark Paid
               </button>
             )}

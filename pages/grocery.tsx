@@ -1,12 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+// Interface for grocery item
+interface GroceryItem {
+  name: string;
+  addedBy: string;
+}
 
 export default function Grocery() {
-  const [item, setItem] = useState<string>("");       // string
-  const [list, setList] = useState<string[]>([]);     // array of strings
+  // Input value
+  const [item, setItem] = useState("");
+
+  // Grocery list
+  const [list, setList] = useState<GroceryItem[]>([]);
+
+  // Username from Profile
+  const [username, setUsername] = useState("");
+
+  // Used to avoid saving before data loads
+  const [loaded, setLoaded] = useState(false);
+
+  // Load saved user and grocery list on page load
+  useEffect(() => {
+    const u = localStorage.getItem("homeSyncUserName");
+    const saved = localStorage.getItem("groceryList");
+
+    if (u) setUsername(u);
+    if (saved) setList(JSON.parse(saved));
+
+    setLoaded(true);
+  }, []);
+
+  // Save grocery list to localStorage whenever it changes
+  useEffect(() => {
+    if (!loaded) return;
+    localStorage.setItem("groceryList", JSON.stringify(list));
+  }, [list, loaded]);
 
   function addItem() {
+    if (!username) {
+      alert("Set your name in Profile first.");
+      return;
+    }
     if (!item) return;
-    setList([...list, item]);
+
+    setList([...list, { name: item, addedBy: username }]);
     setItem("");
   }
 
@@ -17,15 +54,16 @@ export default function Grocery() {
       <input
         value={item}
         onChange={(e) => setItem(e.target.value)}
-        placeholder="Enter grocery item"
-        style={{ padding: "5px", marginRight: "10px" }}
+        placeholder="Add a grocery item"
       />
 
       <button onClick={addItem}>Add</button>
 
-      <ul style={{ marginTop: "20px" }}>
+      <ul>
         {list.map((g, i) => (
-          <li key={i}>{g}</li>
+          <li key={i}>
+            {g.name} (added by {g.addedBy})
+          </li>
         ))}
       </ul>
     </div>

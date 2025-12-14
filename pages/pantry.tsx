@@ -1,49 +1,82 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+// Interface that describes one pantry item
 interface PantryItem {
-  name: string;
-  qty: number;
+  name: string;      // name of the pantry item
+  qty: number;       // quantity of the item
+  addedBy: string;   // username who added the item
 }
 
 export default function Pantry() {
-  const [item, setItem] = useState<string>("");
+  // Input field value
+  const [item, setItem] = useState("");
+
+  // Pantry list state
   const [pantry, setPantry] = useState<PantryItem[]>([]);
 
-  function addPantry() {
+  // Username loaded from Profile page
+  const [username, setUsername] = useState("");
+
+  // Flag to make sure data is loaded before saving
+  const [loaded, setLoaded] = useState(false);
+
+  // Load saved username and pantry list when page opens
+  useEffect(() => {
+    const u = localStorage.getItem("homeSyncUserName");
+    const saved = localStorage.getItem("pantryList");
+
+    if (u) setUsername(u);
+    if (saved) setPantry(JSON.parse(saved));
+
+    setLoaded(true);
+  }, []);
+
+  // Save pantry list to localStorage whenever it changes
+  useEffect(() => {
+    if (!loaded) return;
+    localStorage.setItem("pantryList", JSON.stringify(pantry));
+  }, [pantry, loaded]);
+
+  // Add a new pantry item
+  function addItem() {
+    // User must set name first
+    if (!username) {
+      alert("Set your name in Profile first.");
+      return;
+    }
+
+    // Do not add empty item
     if (!item) return;
-    setPantry([...pantry, { name: item, qty: 1 }]);
+
+    setPantry([...pantry, { name: item, qty: 1, addedBy: username }]);
     setItem("");
   }
 
-  function increaseQty(index: number) {
+  // Increase quantity of an item
+  function incQty(i: number) {
     const copy = [...pantry];
-    copy[index].qty++;
+    copy[i].qty++;
     setPantry(copy);
   }
 
   return (
     <div>
-      <h1>Pantry Inventory</h1>
+      <h1>Pantry</h1>
 
       <input
         value={item}
         onChange={(e) => setItem(e.target.value)}
-        placeholder="Add pantry item"
-        style={{ padding: "5px", marginRight: "10px" }}
+        placeholder="Add a pantry item"
       />
 
-      <button onClick={addPantry}>Add Item</button>
+      <button onClick={addItem}>Add</button>
 
-      <div style={{ marginTop: "20px" }}>
-        {pantry.map((p, i) => (
-          <div key={i}>
-            {p.name} - Qty: {p.qty}
-            <button style={{ marginLeft: "10px" }} onClick={() => increaseQty(i)}>
-              +
-            </button>
-          </div>
-        ))}
-      </div>
+      {pantry.map((p, i) => (
+        <div key={i}>
+          {p.name} (added by {p.addedBy}) – Qty {p.qty}
+          <button onClick={() => incQty(i)}>+</button>
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,33 +1,61 @@
+import { useEffect, useState } from "react";
+import DailyQuote from "../components/DailyQuote";
+
 export default function Home() {
+  // Store username from Profile page
+  const [name, setName] = useState("");
+
+  // Load saved username when Home page loads
+  useEffect(() => {
+    const savedName = localStorage.getItem("homeSyncUserName");
+    if (savedName) {
+      setName(savedName);
+    }
+  }, []);
+
   return (
     <div>
-      <h1>Welcome to HomeSync</h1>
-
-      <p style={{ marginTop: "10px" }}>
-        This is our Phase 1 basic dashboard. In this phase, we have only created the
-        simple structure of the app, basic pages, basic routing, and small interactive
-        features like adding grocery items, chores, notes, etc.
-      </p>
-
-      <p style={{ marginTop: "10px" }}>
-        In Phase 2, we will make this dashboard fully functional based on our group
-        proposal. We will add features like saving data, using username across the
-        app, daily quote from API, better layout, and connecting all modules together.
-      </p>
-
-      {/* Temporary placeholder for the quote section (Phase 2 will replace this) */}
-      <div
+      {/* Main heading with larger font and bold text */}
+      <h1
         style={{
-          marginTop: "20px",
-          padding: "10px",
-          background: "#f9f9f9",
-          border: "1px solid #ddd",
-          borderRadius: "6px",
+          fontSize: "32px",
+          fontWeight: "bold",
+          marginBottom: "15px",
         }}
       >
-        <strong>Daily Quote (Phase 2 Feature):</strong>
-        <p>Quote API integration will be added in the next phase.</p>
-      </div>
+        Welcome to HomeSync{name ? `, ${name}` : ""}
+      </h1>
+
+      {/* Short description of what the app does */}
+      <p style={{ marginBottom: "10px", fontSize: "16px" }}>
+        HomeSync is a simple household management web application designed to
+        help users stay organized and updated. It allows household members to
+        manage groceries, pantry items, chores, bills, and notes in one place.
+      </p>
+
+      <p style={{ marginBottom: "10px", fontSize: "16px" }}>
+        All data is saved in the browser using localStorage, so information
+        remains available even after refreshing the page or reopening the app.
+        Each item also displays who added it, making collaboration clear and
+        easy for everyone in the household.
+      </p>
+
+      {/* App features list for final phase clarity */}
+      <ul style={{ marginBottom: "20px", paddingLeft: "20px" }}>
+      <li>- Persistent data storage using browser localStorage</li>
+      <li>- User-based tracking showing who added each item</li>
+      <li>- Multiple pages implemented using Next.js routing</li>
+      <li>- Clean and consistent user interface design</li>
+      </ul>
+
+
+      {/* Credits section */}
+      <p style={{ marginBottom: "30px", fontStyle: "italic" }}>
+        Created by Prince Patel, Udit Desai, and Rudra Patel
+      </p>
+
+      {/* Daily Quote component (unchanged position) */}
+      <DailyQuote />
     </div>
   );
 }
